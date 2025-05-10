@@ -22,6 +22,12 @@ from django.utils.timezone import now
 # Libreria para visualizar el docuemrento en la pagina web
 from docx2pdf import convert
 
+# Librerias pdf linux
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from weasyprint import HTML
+import tempfile
+
 
 # Create your views here.
 # Vista de la pagina home
