@@ -212,6 +212,23 @@ def tarea_eliminada(request, informes_id):
         task.delete()
         return redirect('principal')
 
+def generar_pdf(request):
+    datos = {
+        'nombre': 'Juan Pérez',
+        'fecha': '2025-05-10',
+        'descripcion': 'Contrato de prestación de servicios...'
+    }
+
+    html_string = render_to_string('contrato_pdf.html', datos)
+
+    with tempfile.NamedTemporaryFile(suffix=".pdf") as output:
+        HTML(string=html_string).write_pdf(output.name)
+
+        output.seek(0)
+        response = HttpResponse(output.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="contrato.pdf"'
+        return response
+
 # Vista de cerrar sesión
 @login_required
 def salir(request):
