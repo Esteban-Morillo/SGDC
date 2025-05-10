@@ -22,12 +22,6 @@ from django.utils.timezone import now
 # Libreria para visualizar el docuemrento en la pagina web
 from docx2pdf import convert
 
-# Librerias pdf linux
-from django.template.loader import render_to_string
-from django.http import HttpResponse
-from weasyprint import HTML
-import tempfile
-
 
 # Create your views here.
 # Vista de la pagina home
@@ -211,23 +205,6 @@ def tarea_eliminada(request, informes_id):
     if request.method == 'POST':
         task.delete()
         return redirect('principal')
-
-def generar_pdf(request):
-    datos = {
-        'nombre': 'Juan Pérez',
-        'fecha': '2025-05-10',
-        'descripcion': 'Contrato de prestación de servicios...'
-    }
-
-    html_string = render_to_string('contrato_pdf.html', datos)
-
-    with tempfile.NamedTemporaryFile(suffix=".pdf") as output:
-        HTML(string=html_string).write_pdf(output.name)
-
-        output.seek(0)
-        response = HttpResponse(output.read(), content_type='application/pdf')
-        response['Content-Disposition'] = 'inline; filename="contrato.pdf"'
-        return response
 
 # Vista de cerrar sesión
 @login_required
