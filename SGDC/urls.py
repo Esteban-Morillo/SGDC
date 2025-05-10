@@ -43,6 +43,8 @@ urlpatterns = [
     path('salir/', views.salir, name = 'salir'),
     # Path para redireccionar luego iniciar sesión
     path('iniciar/', views.iniciar, name = 'iniciar'),
+    # Path para ver pdf linux
+    path('generar-pdf/', views.generar_pdf, name='generar_pdf'),
     # Path para visualizar documento
     path('ver_documento/<int:documento_id>/', views.ver_documento, name='ver_documento'),
     path('principal/', views.principal, name='principal'),
